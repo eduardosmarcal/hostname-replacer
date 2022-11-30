@@ -11,6 +11,8 @@
       const pathArray = currentTab.url.split("/");
   
       let newUrl = document.getElementById("hostname").value;
+
+      chrome.storage.sync.set({ hostnameReplacerValue: newUrl });
   
       if (!newUrl.startsWith("http")) {
         newUrl = pathArray[0] + "//" + newUrl;
@@ -21,8 +23,6 @@
       }
   
       newUrl += pathArray.slice(3).join("/");
-  
-      chrome.storage.sync.set({ hostnameReplacerValue: newUrl });
   
       chrome.tabs.update(currentTab.id, { url: newUrl });
   
